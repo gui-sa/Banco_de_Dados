@@ -152,7 +152,7 @@ CREATE TABLE DISPONIBILIDADE(
 CREATE TABLE CATEGORIA(
     codigo_num_filho int4 NOT NULL,
 	descricao varchar(150),
-	codigo_num_pai int4 NOT NULL,
+	codigo_num_pai int4,
 	PRIMARY KEY (codigo_num_filho),
 	FOREIGN KEY (codigo_num_pai) REFERENCES CATEGORIA(codigo_num_filho)
 		ON UPDATE CASCADE

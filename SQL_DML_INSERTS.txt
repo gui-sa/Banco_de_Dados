@@ -133,3 +133,65 @@ INSERT INTO ENTREGA (ID_P, ID_E) VALUES
 	( 18, 25),
 	( 19, 25),
 	( 20, 2);
+	
+--delete from PIZZARIA
+--select * from PIZZARIA	
+INSERT INTO PIZZARIA (CNPJ, CEP, endereco, website, telefone, horario_abertura, horario_fechamento, ID ) VALUES
+( '15.345.658/0001-42', '60080-150',  'Rua das Seringueiras, 1300, Uberlandia', 'www.pizzariaquentinha.com.br', '+55(34)3235-9241', '18:00:00', '23:00:00', 1),
+( '12.531.531/0001-21', '38411-152',  'Avenida Rondon Pacheco, 1231, Uberlandia', 'www.pizzariadelicia.com.br', '+55(34)3212-4231', '17:00:00', '23:00:00', 10),
+( '23.345.888/0001-42', '6089-152',  'Rua das Mexericas, 60, Uberlandia', 'www.pizzariaqueenche.com.br', '+55(34)3909-9242', '18:00:00', '01:00:00', 11),
+( '18.887.261/0001-71', '38411-156',  'Avenida Rondon Pacheco, 1548, Uberlandia', 'www.pizzariaoriginal.com.br', '+55(34)3242-2090', '17:30:00', '22:30:00', 12),
+( '16.231.543/0001-12', '38412-153',  'Avenida Rondon Pacheco, 432, Uberlandia', 'www.casadasmassas.com.br', '+55(34)3212-4231', '17:00:00', '23:00:00', 13),
+( '55.231.573/0001-99', '20555-152',  'Avenida Jonis Naves, 432, Uberlandia', 'www.casaqueamassa.com.br', '+55(34)3266-4266', '19:00:00', '23:00:00', 14),
+( '12.531.772/0001-42', '38311-152',  'Avenida Joao Naves, 102, Uberlandia', 'www.pizzariaqueromais.com.br', '+55(34)3254-4123', '17:30:00', '23:30:00', 15),
+( '64.133.700/0001-59', '60080-150',  'Rua das Seriguelas, 970, Uberlandia', 'www.pizzariaclassica.com.br', '+55(34)3249-5498', '19:30:00', '24:00:00', 16),
+( '55.123.321/0001-88', '34522-153',   'Avenida Jonis Naves, 135, Uberlandia', 'www.boquinhademassa.com.br', '+55(34)3212-4231', '17:00:00', '23:00:00', 17),
+( '55.124.321/0001-88', '34651-741',   'Avenida Joao Naves, 129, Uberlandia', 'www.pizzariacheiasso.com.br', '+55(34)3256-6631', '17:00:00', '23:00:00', 18),
+( '32.784.123/0001-11', '34812-780',   'Avenida Jonis Naves, 5555, Uberlandia', 'www.deliverypizzariabaodemais.com.br', '+55(34)3215-8251', '20:00:00', '04:00:00', 13);
+
+--delete from TRABALHA
+--select * from TRABALHA
+INSERT INTO TRABALHA (ID_E, CNPJ) VALUES
+	( 4, '15.345.658/0001-42'),
+	( 7, '12.531.531/0001-21'),
+	( 7, '23.345.888/0001-42'),
+	( 7, '15.345.658/0001-42'),
+	( 25, '18.887.261/0001-71'),
+	( 23, '55.231.573/0001-99'),
+	( 26, '64.133.700/0001-59'),
+	( 9, '55.123.321/0001-88'),
+	( 24, '15.345.658/0001-42'),
+	( 23, '55.123.321/0001-88'),
+	(  8, '12.531.772/0001-42');
+
+
+--delete from DISPONIBILIDADE
+--select * from DISPONIBILIDADE	
+INSERT INTO DISPONIBILIDADE (dia, ID_E, CNPJ) VALUES
+	( 'segunda-feira', 4, '15.345.658/0001-42'),
+	( 'segunda-feira', 7, '12.531.531/0001-21'),
+	( 'quarta-feira', 7, '23.345.888/0001-42'),
+	( 'sexta-feira', 7, '15.345.658/0001-42'),
+	( 'terca-feira', 25, '18.887.261/0001-71'),
+	( 'quinta-feira', 25, '18.887.261/0001-71'),
+	( 'sabado', 23, '55.231.573/0001-99'),
+	( 'domingo', 26, '64.133.700/0001-59'),
+	( 'sabado', 9, '55.123.321/0001-88'),
+	( 'domingo', 24, '15.345.658/0001-42'),
+	( 'sabado', 23, '55.123.321/0001-88'),
+	( 'domingo', 8, '12.531.772/0001-42');
+
+--delete from CATEGORIA
+--select * from CATEGORIA
+INSERT INTO CATEGORIA (codigo_num_filho, descricao, codigo_num_pai) VALUES
+	( 1, 'salgada', NULL),
+	( 2, 'tradicional', 1),
+	( 3, 'especial', 1),
+	( 4, 'da casa', 1),
+	( 5, 'doce', NULL),
+	( 6, 'tradicional doce', 5),
+	( 7, 'especial doce', 5),
+	( 8, 'da casa doce', 5),
+	( 9, 'agridoce', NULL),
+	( 10, 'tradicional agridoce', 9),
+	(11, 'especial agridoce', 9);
