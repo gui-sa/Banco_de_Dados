@@ -9,7 +9,7 @@ CREATE TABLE ENTREGADOR(
 	data_nasc date,
 	nome varchar(50) ,
 	endereco varchar(150),
-	placa varchar(7),
+	placa varchar(8),
 	PRIMARY KEY (ID)
 );
 
