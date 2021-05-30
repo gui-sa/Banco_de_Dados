@@ -5,52 +5,39 @@ SET datestyle TO postgres, dmy;
 
 --ENTREGADOR( ID, data_nasc, nome, endereco, placa);
 CREATE TABLE ENTREGADOR(
-     	ID int4 NOT NULL,
+    ID int4 NOT NULL,
 	data_nasc date,
 	nome varchar(50) ,
 	endereco varchar(150),
-placa varchar(7),
+	placa varchar(7),
 	PRIMARY KEY (ID)
 );
 
 --DONO_DE_NEGOCIO( ID, data_nasc, nome, endereco, linkedin);
 CREATE TABLE DONO_DE_NEGOCIO(
-ID int4 NOT NULL,
+	ID int4 NOT NULL,
 	data_nasc date,
 	nome varchar(50) ,
 	endereco varchar(150),
-linkedin varchar(120),
+	linkedin varchar(120),
 	PRIMARY KEY (ID)
      
 ); 
 
 --CONSUMIDOR_FAMINTO( ID, data_nasc, nome, endereco, endereco_entrega);
 CREATE TABLE CONSUMIDOR_FAMINTO(
-ID int4 NOT NULL,
+	ID int4 NOT NULL,
 	data_nasc date,
 	nome varchar(50) ,
 	endereco varchar(150),
-endereco_entrega varchar(150),
+	endereco_entrega varchar(150),
 	PRIMARY KEY (ID)
      
 ); 
-/*
-numaluno SMALLINT NOT NULL,
-	numdisp SMALLINT NOT NULL,
-	numfunc SMALLINT NOT NULL,
-	semestre SMALLINT DEFAULT 1,
-	nota SMALLINT CONSTRAINT maiorque60 CHECK (nota>=60),
-	CONSTRAINT aulapk PRIMARY KEY (numaluno, numdisp, numfunc),
-	CONSTRAINT aulafk1 FOREIGN KEY (numaluno)
-		REFERENCES ALUNO(numaluno),
-	CONSTRAINT aulafk2 FOREIGN KEY (numdisp)
-		REFERENCES DISCIPLINA(numdisp),
-	CONSTRAINT aulafk3 FOREIGN KEY (numfunc)
-		REFERENCES PROFESSOR (numfunc)
-*/
+
 --ANIMADOR( ID(ENTREGADOR.ID), bibliografia, preco, nome_artistico );
 CREATE TABLE ANIMADOR(
-     	ID int4 NOT NULL,
+    ID int4 NOT NULL,
 	bibliografia varchar(500),
 	preco numeric(9,2) CONSTRAINT notneg_a CHECK (preco > 0),-- preco/30 min
 	nome_artistico varchar(150),
@@ -63,13 +50,13 @@ CREATE TABLE ANIMADOR(
 
 --FORMA_PAGAMENTO( nome );
 CREATE TABLE FORMA_PAGAMENTO(
-     	nome varchar(30),
-PRIMARY KEY (nome)
+    nome varchar(30),
+	PRIMARY KEY (nome)
 ); 
 
 --PEDIDO( ID, troco, bandeira, quantas_pessoas, horario_entrega, horario, data, custo_total, ID_E( ENTREGADOR.ID ), ID_F( CONSUMIDOR_FAMINTO.ID ), nome_fp( FORMA_PAGAMENTO.nome));
 CREATE TABLE PEDIDO(
-     	ID int4 NOT NULL,
+    ID int4 NOT NULL,
 	troco numeric(9,2),
 	bandeira varchar (30),
 	quantas_pessoas int2,
@@ -77,46 +64,46 @@ CREATE TABLE PEDIDO(
 	horario time,
 	data date,
 	custo_total numeric(9,2) CONSTRAINT notneg_p CHECK (custo_total > 0),
-ID_E  int4 NOT NULL,
-ID_F int4 NOT NULL,
-nome_fp varchar(30) NOT NULL,
-PRIMARY KEY (ID),
+	ID_E  int4 NOT NULL,
+	ID_F int4 NOT NULL,
+	nome_fp varchar(30) NOT NULL,
+	PRIMARY KEY (ID),
 	FOREIGN KEY (ID_E) REFERENCES ENTREGADOR(ID)
 		ON UPDATE CASCADE
 		ON DELETE CASCADE,
-FOREIGN KEY (ID_F) REFERENCES CONSUMIDOR_FAMINTO(ID)
+	FOREIGN KEY (ID_F) REFERENCES CONSUMIDOR_FAMINTO(ID)
 		ON UPDATE CASCADE
 		ON DELETE CASCADE,
-FOREIGN KEY (nome_fp) REFERENCES FORMA_PAGAMENTO(nome)
+	FOREIGN KEY (nome_fp) REFERENCES FORMA_PAGAMENTO(nome)
 		ON UPDATE CASCADE
 		ON DELETE CASCADE
 ); 
 
 --PEDIDO_ENTRETENIMENTO( ID( PEDIDO.ID ), tipo, duracao, ID_E( ANIMADOR.ID ), ID_F( CONSUMIDOR_FAMINTO.ID ));
 CREATE TABLE PEDIDO_ENTRETENIMENTO(
-     	ID int4 NOT NULL,
+    ID int4 NOT NULL,
 	tipo varchar(50),
 	duracao int2  CONSTRAINT notneg_pe CHECK (duracao > 0)  ,--quant bloc 30 min
 	ID_E  int4 NOT NULL,
-ID_F int4 NOT NULL,
-PRIMARY KEY (ID),
-FOREIGN KEY (ID) REFERENCES PEDIDO(ID)
+	ID_F int4 NOT NULL,
+	PRIMARY KEY (ID),
+	FOREIGN KEY (ID) REFERENCES PEDIDO(ID)
 		ON UPDATE CASCADE
 		ON DELETE CASCADE,
 	FOREIGN KEY (ID_E) REFERENCES ANIMADOR(ID)
 		ON UPDATE CASCADE
 		ON DELETE CASCADE,
-FOREIGN KEY (ID_F) REFERENCES CONSUMIDOR_FAMINTO(ID)
+	FOREIGN KEY (ID_F) REFERENCES CONSUMIDOR_FAMINTO(ID)
 		ON UPDATE CASCADE
 		ON DELETE CASCADE
 ); 
 
 --ENTREGA( ID_P( PEDIDO.ID ), ID_E( ENTREGADOR.ID ) );
 CREATE TABLE ENTREGA(
-     	ID int4 NOT NULL,
+    ID_P int4 NOT NULL,
 	ID_E int4 NOT NULL,
-	PRIMARY KEY (ID),
-FOREIGN KEY (ID) REFERENCES PEDIDO(ID)
+	PRIMARY KEY (ID_P),
+	FOREIGN KEY (ID_P) REFERENCES PEDIDO(ID)
 		ON UPDATE CASCADE
 		ON DELETE CASCADE,
 	FOREIGN KEY (ID_E) REFERENCES ENTREGADOR(ID)
@@ -142,8 +129,9 @@ CREATE TABLE PIZZARIA(
 
 --TRABALHA( ID_E( ANIMADOR.ID ), CNPJ( PIZZARIA.CNPJ ) );
 CREATE TABLE TRABALHA(
-	ID_E int4 UNIQUE NOT NULL,
-	CNPJ varchar(18) UNIQUE NOT NULL,
+	ID_E int4 NOT NULL,
+	CNPJ varchar(18) NOT NULL,
+	UNIQUE(ID_E,CNPJ),
 	PRIMARY KEY (ID_E, CNPJ), 
 	FOREIGN KEY (ID_E) REFERENCES ANIMADOR(ID)
 		ON UPDATE CASCADE
@@ -158,20 +146,17 @@ CREATE TABLE DISPONIBILIDADE(
 	dia varchar(15) NOT NULL,--dia da semana
 	ID_E int4 NOT NULL,
 	CNPJ varchar(18) NOT NULL,
---	CONSTRAINT teste UNIQUE(dia,ID_E,CNPJ),
+	UNIQUE(dia,ID_E,CNPJ),
 	PRIMARY KEY (dia, ID_E, CNPJ),
-	FOREIGN KEY (ID_E) REFERENCES TRABALHA(ID_E)
-		ON UPDATE CASCADE
-		ON DELETE CASCADE,
-	FOREIGN KEY (CNPJ) REFERENCES TRABALHA(CNPJ)
+	FOREIGN KEY (CNPJ,ID_E) REFERENCES TRABALHA(CNPJ,ID_E)
 		ON UPDATE CASCADE
 		ON DELETE CASCADE
-);
 
+);
 
 --CATEGORIA( codigo_num_filho, descricao, codigo_num_pai( CATEGORIA.codigo_num_filho ) );
 CREATE TABLE CATEGORIA(
-     	codigo_num_filho int4 NOT NULL,
+    codigo_num_filho int4 NOT NULL,
 	descricao varchar(150),
 	codigo_num_pai int4 NOT NULL,
 	PRIMARY KEY (codigo_num_filho),
@@ -180,24 +165,26 @@ CREATE TABLE CATEGORIA(
 		ON DELETE CASCADE
 
 ); 
+
 --PIZZA( nome, CNPJ( PIZZARIA.CNPJ ), preco, codigo_num_filho( CATEGORIA.codigo_num_filho ) );
 CREATE TABLE PIZZA(
-	nome varchar(50) UNIQUE NOT NULL,
-	CNPJ varchar(18) UNIQUE NOT NULL,
+	nome varchar(50) NOT NULL,
+	CNPJ varchar(18) NOT NULL,
 	preco numeric(9,2) CONSTRAINT notneg_t CHECK (preco > 0),
 	codigo_num_filho int4 NOT NULL,
-	PRIMARY KEY (nome, CNPJ,codigo_num_filho),
-FOREIGN KEY (CNPJ) REFERENCES PIZZARIA(CNPJ)
+	PRIMARY KEY (nome, CNPJ),
+	FOREIGN KEY (CNPJ) REFERENCES PIZZARIA(CNPJ)
 		ON UPDATE CASCADE
 		ON DELETE CASCADE,
-FOREIGN KEY (codigo_num_filho) REFERENCES CATEGORIA(codigo_num_filho)
+	FOREIGN KEY (codigo_num_filho) REFERENCES CATEGORIA(codigo_num_filho)
 		ON UPDATE CASCADE
 		ON DELETE CASCADE
 ); 
+
 --TEM_P( ID( PEDIDO.ID ), CNPJ( PIZZA.CNPJ ), nome_p( PIZZA.nome ), quant_molho, massa, borda );
 CREATE TABLE TEM_P(
-     	ID int4 NOT NULL,
-	CNPJ varchar(18) UNIQUE NOT NULL,
+   	ID int4 NOT NULL,
+	CNPJ varchar(18) NOT NULL,
 	nome_p varchar(50) NOT NULL,
 	quant_molho varchar(30),
 	massa varchar(30),
@@ -206,17 +193,15 @@ CREATE TABLE TEM_P(
 	FOREIGN KEY (ID) REFERENCES PEDIDO(ID)
 		ON UPDATE CASCADE
 		ON DELETE CASCADE,
-	FOREIGN KEY (CNPJ) REFERENCES PIZZA(CNPJ)
-		ON UPDATE CASCADE
-		ON DELETE CASCADE,
-	FOREIGN KEY (nome_p) REFERENCES PIZZA(nome)
+	FOREIGN KEY (CNPJ, nome_p) REFERENCES PIZZA(CNPJ,nome)
 		ON UPDATE CASCADE
 		ON DELETE CASCADE
 ); 
+
 --ACOMPANHAMENTO( codigo, CNPJ( PIZZARIA.CNPJ ), descricao, nome, tipo, preco );
 CREATE TABLE ACOMPANHAMENTO(
-	codigo int4 UNIQUE NOT NULL,
-	CNPJ varchar(18) UNIQUE NOT NULL,
+	codigo int4 NOT NULL,
+	CNPJ varchar(18) NOT NULL,
 	descricao varchar(200),
 	nome varchar(50),
 	tipo varchar(30),
@@ -226,26 +211,25 @@ CREATE TABLE ACOMPANHAMENTO(
 		ON UPDATE CASCADE
 		ON DELETE CASCADE
 ); 
+
 --TEM_A ( ID( PEDIDO.ID ), codigo( ACOMPANHAMENTO.codigo ), CNPJ( ACOMPANHAMENTO.CNPJ ), quantidade );
 CREATE TABLE TEM_A(
 	ID int4 NOT NULL,
 	codigo int4 NOT NULL,
 	CNPJ varchar(18) NOT NULL,
 	quantidade int2 CONSTRAINT notneg_qnt CHECK (quantidade > 0),
-	PRIMARY KEY (ID, codigo),
+	PRIMARY KEY (ID, codigo, CNPJ),
 	FOREIGN KEY (ID) REFERENCES PEDIDO(ID)
 		ON UPDATE CASCADE
 		ON DELETE CASCADE,
-FOREIGN KEY (codigo) REFERENCES ACOMPANHAMENTO(codigo)
-		ON UPDATE CASCADE
-		ON DELETE CASCADE,
-FOREIGN KEY (CNPJ) REFERENCES ACOMPANHAMENTO(CNPJ)
+	FOREIGN KEY (codigo,CNPJ) REFERENCES ACOMPANHAMENTO(codigo,CNPJ)
 		ON UPDATE CASCADE
 		ON DELETE CASCADE
 ); 
+
 --INGREDIENTE_EXTRA( ID, nome, preco );
 CREATE TABLE INGREDIENTE_EXTRA(
-     	ID int4 NOT NULL,
+    ID int4 NOT NULL,
 	nome varchar(50),
 	preco numeric(9,2) CONSTRAINT notneg_ie CHECK (preco > 0),
 	PRIMARY KEY (ID)
@@ -254,29 +238,27 @@ CREATE TABLE INGREDIENTE_EXTRA(
 
 --TEM_I( ID_P( PEDIDO.ID ), ID_I( INGREDIENTE_EXTRA.ID ));
 CREATE TABLE TEM_I(
-     	ID_P int4 NOT NULL,
+    ID_P int4 NOT NULL,
 	ID_I int4 NOT NULL,
 	PRIMARY KEY (ID_P, ID_I),
 	FOREIGN KEY (ID_P) REFERENCES PEDIDO(ID)
 		ON UPDATE CASCADE
 		ON DELETE CASCADE,
-FOREIGN KEY (ID_I) REFERENCES INGREDIENTE_EXTRA(ID)
+	FOREIGN KEY (ID_I) REFERENCES INGREDIENTE_EXTRA(ID)
 		ON UPDATE CASCADE
 		ON DELETE CASCADE
-); 
+);
+
 --PARA ( ID_I( INGREDIENTE_EXTRA.ID ), CNPJ( PIZZA.CNPJ ), nome_p( PIZZA.nome ) );
 CREATE TABLE PARA(
-     	ID_I int4 NOT NULL,
+    ID_I int4 NOT NULL,
 	CNPJ varchar(18) NOT NULL,
 	nome_p varchar(50) NOT NULL,
 	PRIMARY KEY (ID_I, CNPJ, nome_p),
-FOREIGN KEY (ID_I) REFERENCES INGREDIENTE_EXTRA(ID)
+	FOREIGN KEY (ID_I) REFERENCES INGREDIENTE_EXTRA(ID)
 		ON UPDATE CASCADE
 		ON DELETE CASCADE,
-FOREIGN KEY (CNPJ) REFERENCES PIZZA(CNPJ)
-		ON UPDATE CASCADE
-		ON DELETE CASCADE,
-FOREIGN KEY (nome_p) REFERENCES PIZZA(nome)
+	FOREIGN KEY (CNPJ, nome_p) REFERENCES PIZZA(CNPJ, nome)
 		ON UPDATE CASCADE
 		ON DELETE CASCADE
 );
