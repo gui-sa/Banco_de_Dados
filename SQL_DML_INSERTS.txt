@@ -195,3 +195,122 @@ INSERT INTO CATEGORIA (codigo_num_filho, descricao, codigo_num_pai) VALUES
 	( 9, 'agridoce', NULL),
 	( 10, 'tradicional agridoce', 9),
 	(11, 'especial agridoce', 9);
+
+--delete from PIZZA
+--select * from PIZZA
+INSERT INTO PIZZA (nome, CNPJ, preco, codigo_num_filho) VALUES
+	( 'Marguerita', '15.345.658/0001-42', 30.00, 2),
+	( 'Marguerita', '12.531.531/0001-21', 30.00, 2),
+	( 'Mussarela', '12.531.531/0001-21', 25.00, 2),
+	( 'Mussarela',  '32.784.123/0001-11', 80.00, 2),
+	( 'Brigadeiro',  '12.531.531/0001-21', 25.00, 5),
+	( 'Sorvete de creme',  '12.531.531/0001-21', 25.00, 8),
+	( 'Brigaqueijo',  '12.531.531/0001-21', 40.00, 11),
+	( 'Portuguesa',  '12.531.531/0001-21', 80.00, 3),
+	( 'Calabresa', '23.345.888/0001-42', 25.00, 2),
+	( 'California', '23.345.888/0001-42', 35.00, 4),
+	( 'Frango Catupiri', '18.887.261/0001-71', 50.00, 3),
+	( 'Frango Catupiri', '15.345.658/0001-42', 60.00, 3),
+	( 'Vegetariana', '18.887.261/0001-71', 55.00, 3);
+
+--delete from TEM_P
+--select * from TEM_P
+INSERT INTO TEM_P (ID, nome_p, CNPJ ,quant_molho, massa, borda) VALUES 
+	(1, 'Marguerita', '15.345.658/0001-42', 'muito', 'extra fina', 'padrao'), 
+	(2, 'Marguerita', '12.531.531/0001-21', 'muito', 'padrao', 'padrao'), 
+	(3, 'Mussarela', '12.531.531/0001-21', 'muito', 'padrao', 'padrao'), 
+	(4, 'Mussarela', '12.531.531/0001-21', 'padrao', 'padrao', 'padrao'), 
+	(5, 'Sorvete de creme',  '12.531.531/0001-21', 'padrao', 'padrao', 'padrao'), 
+	(6, 'Sorvete de creme',  '12.531.531/0001-21', 'padrao', 'padrao', 'padrao'), 
+	(7, 'Sorvete de creme',  '12.531.531/0001-21', 'padrao', 'padrao', 'padrao'), 
+	(8, 'Sorvete de creme',  '12.531.531/0001-21', 'padrao', 'padrao', 'padrao'), 
+	(8, 'Brigadeiro',  '12.531.531/0001-21', NULL, 'padrao', 'recheada com chocolate'),
+	(8, 'Brigaqueijo',  '12.531.531/0001-21', NULL, 'padrao', 'padrao'),
+	(8, 'Portuguesa',  '12.531.531/0001-21','pouco', 'padrao', 'recheada com queijo'),
+	(8, 'Marguerita', '12.531.531/0001-21','muito', 'padrao', 'recheada com catupiri'),
+	(9, 'Calabresa', '23.345.888/0001-42', 'pouco', 'fina', 'recheada com queijo'), 
+	(10, 'California', '23.345.888/0001-42', 'muito', 'grossa', 'padrao'), 
+	(11, 'Vegetariana', '18.887.261/0001-71', 'muito', 'grossa', 'padrao'), 
+	(12, 'Vegetariana', '18.887.261/0001-71', 'muito', 'grossa', 'padrao'), 
+	(13, 'Brigaqueijo',  '12.531.531/0001-21', NULL, 'padrao', 'padrao'),
+	(14, 'Frango Catupiri', '18.887.261/0001-71', NULL, 'padrao', 'padrao'),
+	(15, 'Marguerita', '12.531.531/0001-21', 'muito', 'padrao', 'padrao'), 
+	(16, 'Frango Catupiri', '15.345.658/0001-42', 'muito', 'padrao', 'padrao'),
+	(17, 'Marguerita', '12.531.531/0001-21', 'muito', 'grossa', 'padrao'), 
+	(18, 'Frango Catupiri', '15.345.658/0001-42', 'muito', 'padrao', 'padrao'),
+	(19, 'Frango Catupiri', '15.345.658/0001-42', 'muito', 'extra fina', 'recheada com queijo'),
+	(20, 'Frango Catupiri', '15.345.658/0001-42', 'muito', 'padrao', 'recheada com bacon'),
+	(21, 'Portuguesa',  '12.531.531/0001-21', 'muito', 'grossa', 'recheada com bacon'),
+	(22, 'Portuguesa',  '12.531.531/0001-21', 'pouco', 'grossa', 'recheado com creme de milho');
+
+--delete from ACOMPANHAMENTO
+--select * from ACOMPANHAMENTO
+INSERT INTO ACOMPANHAMENTO (codigo, CNPJ, descricao, nome, tipo, preco) VALUES
+	( 1,  '15.345.658/0001-42', ' 350 ml', 'Pepsi', 'bebida', 2.00 ),
+	( 2,  '15.345.658/0001-42', ' 2000 ml', 'Pepsi', 'bebida', 8.00 ),
+	( 3,  '12.531.531/0001-21', ' 350 ml', 'Guarana', 'bebida', 2.00 ),
+	( 4,  '15.345.658/0001-42', ' 2000 ml', 'Guarana', 'bebida', 8.00 ),
+	( 5,  '15.345.658/0001-42', ' 350 ml', 'Coca', 'bebida', 3.00 ),
+	( 6,  '12.531.531/0001-21', ' 2000 ml', 'Coca', 'bebida', 9.00 ),
+	( 7,  '18.887.261/0001-71', ' 350 ml', 'Skoll', 'bebida', 5.00 ),
+	( 8,  '15.345.658/0001-42', ' 1000 ml', 'Skoll', 'bebida', 12.00 ),
+	( 9,  '15.345.658/0001-42', ' 350 ml', 'Brahma', 'bebida', 6.00 ),
+	( 10, '15.345.658/0001-42', ' 1000 ml', 'Brahma', 'bebida', 13.00 ),
+	( 11, '15.345.658/0001-42', ' grande', 'Caesar', 'salada', 15.00 ),
+	( 12, '18.887.261/0001-71', ' medio', 'Caesar', 'salada', 8.00 ),
+	( 13, '15.345.658/0001-42', ' pequeno', 'Caesar', 'salada', 4.00 ),
+	( 14, '18.887.261/0001-71', ' grande', 'simples', 'salada', 8.00 ),
+	( 15, '15.345.658/0001-42', ' medio', 'simples', 'salada', 4.00 ),
+	( 16, '23.345.888/0001-42', ' pequeno', 'simples', 'salada', 2.00 ),
+	( 17, '18.887.261/0001-71', ' unidade', 'brigadeiro', 'doce', 2.00 ),
+	( 18, '15.345.658/0001-42', ' fatia', 'pudim', 'doce', 3.00 );
+
+--delete from TEM_A
+--select * from TEM_A
+INSERT INTO TEM_A (ID, codigo, CNPJ, quantidade) VALUES 
+	( 8,  6,  '12.531.531/0001-21', 20 ),
+	( 8,  3,  '12.531.531/0001-21', 10 ),
+	( 1,  1,  '15.345.658/0001-42', 1 ),
+	( 20,  2,  '15.345.658/0001-42', 1 ),
+	( 20,  4,  '15.345.658/0001-42', 1 ),
+	( 18,  5,  '15.345.658/0001-42', 1 ),
+	( 18,  9,  '15.345.658/0001-42', 1 ),
+	( 19,  13,  '15.345.658/0001-42', 1 ),
+	( 19,  10,  '15.345.658/0001-42', 1 ),
+	( 18,  15,  '15.345.658/0001-42', 1 ),
+	( 20,  18,  '15.345.658/0001-42', 2 ),
+	( 20,  8,  '15.345.658/0001-42', 1 );
+
+--delete from INGREDIENTE_EXTRA
+--select * from INGREDIENTE_EXTRA
+INSERT INTO INGREDIENTE_EXTRA (ID, nome, preco) VALUES
+	( 1, 'bacon', 1.00),
+	( 2, 'milho', 1.00),
+	( 3, 'palmito', 1.50),
+	( 4, 'chedar', 1.50),
+	( 5, 'oregano', 0.50),
+	( 6, 'azeitona', 1.50),
+	( 7, 'catupiri', 2.00),
+	( 8, 'chocolate', 2.00),
+	( 9, 'bom bom', 2.50),
+	( 10, 'caramelo', 2.00);
+
+--delete from TEM_I
+--select * from TEM_I
+INSERT INTO TEM_I (ID_P, ID_I) VALUES 
+	( 1 , 1),
+	( 1 , 2),
+	( 8 , 4),
+	( 8 , 1),
+	( 8 , 5),
+	( 8 , 6),
+	( 8 , 7),
+	( 3 , 1),
+	( 5 , 8),
+	( 6 , 7),
+	( 7 , 3),
+	( 10 , 2),
+	( 2 , 4),
+	( 3 , 2),
+	( 9 , 6),
+	( 9 , 7);
