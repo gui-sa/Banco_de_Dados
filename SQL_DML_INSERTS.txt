@@ -1,0 +1,80 @@
+--delete from entregador
+--select * from entregador
+
+INSERT INTO ENTREGADOR ( ID, data_nasc, nome, endereco, placa) VALUES
+	( 1, '22/11/1993', 'Jose da Aparecida' , 'Rua Sao Joao, 950, Uberlandia' , 'PQJ-8031'),
+	( 2, '14/05/1980', 'Rafael Costa da Silva' , 'Avenida Rondon Pacheco, 1020, Uberlandia', 'HCD-1552'),
+	( 3, '20/01/1991', 'Diego Freitas de Oliveira', 'Rua Joaquim de Barros, 255, Uberlandia ', 'PWM-7281'),
+	( 4, '12/05/1980', 'Rafael Costa da Silva' , 'Avenida Afonso Pena, 115, Uberlandia', 'PZI-4025'),
+	( 5, '08/05/1994', 'Maria Carla da Silva' , 'Rua Carajas, 520, Uberlandia' , 'WXJ-1941'),
+	( 6, '02/01/1985', 'Luis Felipe da Cunha' , 'Rua das Seringueiras, 1200, Uberlandia' , 'DHC-1592'),
+	( 7, '25/05/2001', 'Enzo Costa Ferreira' , 'Rua Parana, 1650, Uberlandia' , 'SDO-2247'),
+	( 8, '02/03/1994', 'Diogo Resende' , 'Rua dos Carajas, 150, Uberlandia' , 'PWW-4215'),
+	( 9, '30/07/1999', 'Manuel Pereira Marques' , 'Rua Rio de Janeiro, 50, Uberlandia' , 'RRU-6347'),
+	( 10, '15/02/1975', 'Jose da Silva ' , 'Rua Alberto Guimaraes, 110, Uberlandia' , 'DCH-1210'),
+	( 23, '11/08/1982', 'Judis Creidis ' , 'Rua Alberto Guimaraes, 110, Uberlandia' , 'DBC-5215'),
+	( 24, '15/02/1967', 'Whylsson da Silva ' , 'Rua Lagoinha, 152, Uberlandia' , 'PQQ-1342'),
+	( 25, '11/02/1992', 'Flavio Rezende Batista' , 'Rua dos Machados, 1242, Uberlandia' , 'EDC-7231'),
+	( 26, '01/05/1982', 'Baby Soares ' , 'Avenida Getulio Vargas, 521, Uberlandia' , 'PQQ-1342');
+
+--delete from DONO_DE_NEGOCIO
+--select * from dono_de_negocio
+
+INSERT INTO DONO_DE_NEGOCIO( ID, data_nasc, nome, endereco, linkedin) VALUES
+	( 1, '22/11/1993', 'Jose da Aparecida' , 'Rua Sao Joao, 950, Uberlandia' , 'https://www.linkedin.com/in/Jose-da-aparecida-555' ),
+	( 10, '15/02/1975', 'Jose da Silva ' , 'Rua Alberto Guimaraes, 110, Uberlandia' , 'https://www.linkedin.com/in/Jose-da-silva-874'),
+	( 11, '13/10/1980', 'Joao Apolinario' , 'Rua Clarimundo Carneiro, 120, Uberlandia' , 'https://www.linkedin.com/in/Joao-Apolinario-325' ),
+	( 12, '26/08/1978', 'Larissa de Macedo Machado' , 'Avenida Fernando Vilela, 860, Uberlandia' , 'https://www.linkedin.com/in/Larissa-De-Macedo-Machedo' ),
+	( 13, '28/06/1971', 'Elon Musk' , 'Avenida Vinhedos , 900, Uberlandia' , 'https://www.linkedin.com/company/spacex/?originalSubdomain=br' ),
+	( 14, '12/01/1964', 'Jeff Bezos' , 'Avenida Vinhedos , 1299, Uberlandia' , 'https://www.linkedin.com/showcase/jeff-bezos-newslines/' ),
+	( 15, '03/09/1989', 'Nivaldo Batista Lima' , 'Avenida Fernando Vilela, 705, Uberlandia' , 'https://www.linkedin.com/in/Nivaldo-Batista-Lima' ),
+	( 16, '05/01/1995', 'Whindersson Nunes' , 'Avenida Fernando Vilela, 1035, Uberlandia', 'https://www.linkedin.com/in/whindersson-nunes-8a442b203/?originalSubdomain=br' ),
+	( 17, '02/02/2002', 'Maisa Silva' , 'Avenida Fernando Vilela, 595, Uberlandia' , 'https://www.linkedin.com/in/Nivaldo-Batista-Lima' ),
+	( 18, '05/02/1992', 'Neymar da Silva Santos Junior' , 'Avenida Fernando Vilela, 705, Uberlandia' , 'https://www.linkedin.com/in/neymar-da-silva-santos-jr-a73b0493/?originalSubdomain=br' );
+
+--delete from consumidor_faminto
+--select * from consumidor_faminto
+
+INSERT INTO CONSUMIDOR_FAMINTO ( ID, data_nasc, nome, endereco, endereco_entrega ) VALUES
+	( 1, '22/11/1993', 'Jose da Aparecida' , 'Rua Sao Joao, 950, Uberlandia' , 'Rua Sao Joao, 950, Uberlandia' ),
+	( 3, '20/01/1991', 'Diego Freitas de Oliveira', 'Rua Joaquim de Barros, 255, Uberlandia ',  'Rua Joaquim de Barros, 255, Uberlandia '),
+	( 7, '25/05/2001', 'Enzo Costa Ferreira' , 'Rua Parana, 1650, Uberlandia' , 'Rua Parana, 1650, Uberlandia'),
+	( 10, '15/02/1975', 'Jose da Silva ' , 'Rua Alberto Guimaraes, 110, Uberlandia' ,  'Rua Alberto Guimaraes, 110, Uberlandia'),
+	( 11, '13/10/1980', 'Joao Apolinario' , 'Rua Clarimundo Carneiro, 120, Uberlandia' ,  'Rua Clarimundo Carneiro, 120, Uberlandia' ),
+	( 12, '26/08/1978', 'Larissa de Macedo Machado' , 'Avenida Fernando Vilela, 860, Uberlandia' , 'Avenida Philadelpho kaka, 140, Uberlandia' ),
+	( 13, '28/06/1971', 'Elon Musk' , 'Avenida Vinhedos , 900, Uberlandia' ,  'Avenida Vinhedos , 900, Uberlandia' ),
+	( 19, '28/06/1989', 'Péricles Capivaris Campos' , 'Joao Naves , 555, Uberlandia' ,  'Joao Silva Medeiros , 144, Uberlandia' ),
+	( 20, '10/06/1999', 'Borracha Capivaris Campos' , 'Joao Naves , 555, Uberlandia' ,   'Joao Silva Medeiros , 144, Uberlandia' ),
+	( 21, '15/08/1996', 'Wilsom Pinto' , 'Periferia Abençoada , 89, Uberlandia' ,  'Periferia Abençoada , 89, Uberlandia' ),
+	( 22, '11/02/1901', 'Nicomedes Natal da Silva' , 'Rua Lagoinha ,152, Uberlandia' ,  'Avenida Vinhedos , 900, Uberlandia' );
+
+
+--delete from animador
+--select * from animador
+
+INSERT INTO ANIMADOR( ID, bibliografia, preco, nome_artistico ) VALUES
+	( 4, 'Desde de criança sempre fui pequeno… Aos 13 de idade fui contemplado como o menor aluno da escola (orgulho). 2015, participei da mostra nacional dos Pequenos Divertidos e fiquei em terceiro lugar. Desde então me casei, e vivo trazendo humor às pessoas!' , 25.00 , 'Anao pequeno'),
+	( 7, 'Desde de pequena em minhas aulas, os professores me chamavam de raio laser de tao brilhante que eu era e desde então sempre ando com uma bala de Icekiss para nunca incomodar o cliente com bafo' , 45.00 , 'Lohane Vekanandre Sthephany Smith Bueno de HA HA HA de Raio Laser bala de Icekiss! Se naum brilha CORTA!'),
+	( 25, 'Sempre fui o mais engracado da minha sala de aula, fiz muitos stand-up durante a minha vida e hoje sou um dos comediantes mais prestigiados de minha ciade', 50.00, 'Bozzo'),
+	( 26, 'Desde pequena nunca gostei de estudar, sempre me aventurei de outras maneiras, hoje achei uma maneira mais facil de ganhar a vida, faço de tudo', 200.00, 'Lohhaire'),
+	( 8, 'Em 2005 fui o mais jovem astrofisico a ganhar um nobel, por ter desenvolvido uma nova teoria sobre buraco de minhoca, sou graduado no MIT com doutorado em Harvard, contudo a vida nao foi facil e recentemente trabalhei por 2 anos de uber e atualmente gracas a Deus estou com um servico estavel de animador', 10.00, 'Stephen Hawking'),
+	( 3, 'Aos 15 anos de idade matei, acidentalmente, meus pais e fui preso, contudo aprendi muito como eh a vida na prisao. Aos 23 virei pastor na universal e hoje sou muito requisitado para fazer cultos em casas', 250.0 , 'Pastor da Familia'),
+	( 9, 'Desde crianca sempre gostei de atuar, ja fui protagonista em diversos pecas, atualmente faco atuacoes domiciliares', 250 , 'hamlet'),
+	( 6, 'Nada de especial na minha vida até assistir NARUTO SHIPUDEN, desde então grito SASKEEE na rua e invoco sapos. Os ninjas da aldeia de UDIA adoram o chacra positivo que trago me chamando de NARUTOO' , 50.00 , 'NARUTOO-SASKEE'),
+	( 24, 'Quando eu era pequeno minha mae me levou em um show de magica e nunca fui tao enganado na minha vida, a partir deste dia meu objetivo e me tornar o maior magico deste planeta para poder enganar qualquer um com meu baralho', 40, 'O Magico de OZ'),
+	( 23, 'Durante grande parte da minha infancia fazia malabarismo nos semaforos para ganhar dinheiro, hoje sou capaz de fazer malabarismo com serras eletricas ligadas e todos se divertem muito, gosto de viver perigosamente, mas meus clientes gostam de manter distancia!', 15.00 , 'Jack the killer');
+
+--delete from forma_pagamento
+--select * from forma_pagamento
+
+INSERT INTO FORMA_PAGAMENTO (nome) VALUES
+	('CARTAO '),
+	('DINHEIRO '),
+	('CHEQUE '),
+	('PERMUTA '),
+	('SERVICOS ESPECIAIS'),
+	('VALE '),
+	('PIX '),
+	('TRANSFERENCIA '),
+	('VOUCHER'),
+	('A COMBINAR ');
