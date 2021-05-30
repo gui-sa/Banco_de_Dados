@@ -295,22 +295,22 @@ INSERT INTO INGREDIENTE_EXTRA (ID, nome, preco) VALUES
 	( 9, 'bom bom', 2.50),
 	( 10, 'caramelo', 2.00);
 
---delete from TEM_I
---select * from TEM_I
-INSERT INTO TEM_I (ID_P, ID_I) VALUES 
-	( 1 , 1),
-	( 1 , 2),
-	( 8 , 4),
-	( 8 , 1),
-	( 8 , 5),
-	( 8 , 6),
-	( 8 , 7),
-	( 3 , 1),
-	( 5 , 8),
-	( 6 , 7),
-	( 7 , 3),
-	( 10 , 2),
-	( 2 , 4),
-	( 3 , 2),
-	( 9 , 6),
-	( 9 , 7);
+--delete from PARA
+--select * from PARA
+INSERT INTO PARA (ID_P, ID_I ,  nome_p, CNPJ) VALUES 
+	( 1 , 1, 'Marguerita', '15.345.658/0001-42' ),
+	( 1 , 2, 'Marguerita', '15.345.658/0001-42' ),
+	( 8 , 4,  'Portuguesa',  '12.531.531/0001-21'),
+	( 8 , 1,  'Marguerita',  '12.531.531/0001-21'),
+	( 8 , 5,  'Marguerita',  '12.531.531/0001-21'),
+	( 8 , 6, 'Portuguesa',  '12.531.531/0001-21'),
+	( 8 , 9,  'Sorvete de creme',  '12.531.531/0001-21' ),
+	( 3 , 1, 'Mussarela', '12.531.531/0001-21' ),
+	( 5 , 8,  'Sorvete de creme',  '12.531.531/0001-21'),
+	( 6 , 7, 'Sorvete de creme',  '12.531.531/0001-21'),
+	( 7 , 3, 'Sorvete de creme',  '12.531.531/0001-21' ),
+	( 10 , 2, 'California', '23.345.888/0001-42'),
+	( 2 , 4, 'Marguerita', '12.531.531/0001-21'),
+	( 3 , 2, 'Mussarela', '12.531.531/0001-21' ),
+	( 9 , 6, 'Calabresa', '23.345.888/0001-42'),
+	( 9 , 7, 'Calabresa', '23.345.888/0001-42');

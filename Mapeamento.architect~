@@ -613,7 +613,7 @@
  <ddl-generator type="ca.sqlpower.architect.ddl.GenericDDLGenerator" allow-connection="true"> </ddl-generator>
  <liquibase-settings useSeparateChangeSets="false" generateId="false" idStart="1"/>
  <create-kettle-job-settings filePath="" jobName="" schemaName="" kettleJoinType="0" savingToFile="true" />
- <play-pen zoom="0.9999999999999998" viewportX="122" viewportY="180" relationship-style="rectilinear" names-displayLogicalNames="true" showPrimaryTag="true" showForeignTag="true" showAlternateTag="true" columnVisibility="ALL" relationshipLabelVisibility="true">
+ <play-pen zoom="0.9999999999999998" viewportX="458" viewportY="0" relationship-style="rectilinear" names-displayLogicalNames="true" showPrimaryTag="true" showForeignTag="true" showAlternateTag="true" columnVisibility="ALL" relationshipLabelVisibility="true">
   <table-pane table-ref="TAB1" x="526" y="293" bgColor="0xeeeeee" fgColor="0x000000" rounded="false" dashed="false"/>
   <table-pane table-ref="TAB14" x="159" y="344" bgColor="0xeeeeee" fgColor="0x000000" rounded="false" dashed="false"/>
   <table-pane table-ref="TAB22" x="391" y="586" bgColor="0xeeeeee" fgColor="0x000000" rounded="false" dashed="false"/>
@@ -652,7 +652,7 @@
   <table-link relationship-ref="REL157" pkConnection="0.9758454106280193" fkConnection="0.5473684210526316" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
   <table-link relationship-ref="REL186" pkConnection="0.6339285714285714" fkConnection="0.2767857142857143" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="72"/>
   <table-link relationship-ref="REL195" pkConnection="0.5822784810126582" fkConnection="0.3404255319148936" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="18"/>
-  <table-link relationship-ref="REL159" pkConnection="0.1932367149758454" fkConnection="1.0" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="65"/>
+  <table-link relationship-ref="REL159" pkConnection="0.6016949152542372" fkConnection="0.4126984126984127" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="40"/>
   <table-link relationship-ref="REL197" pkConnection="0.4936708860759494" fkConnection="0.48936170212765956" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
   <table-link relationship-ref="REL189" pkConnection="0.379746835443038" fkConnection="0.39732142857142855" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="65"/>
   <table-link relationship-ref="REL199" pkConnection="0.49828178694158076" fkConnection="0.0" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="36"/>
