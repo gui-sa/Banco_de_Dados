@@ -1,12 +1,10 @@
-DROP TRIGGER atualiza_usuarios ON CONSUMIDOR_FAMINTO;
-
 SET SEARCH_PATH TO DELIVERY;
 
-CREATE OR REPLACE FUNCTION altera_demais_usuarios()
+--DROP TRIGGER atualiza_usuarios_CF ON CONSUMIDOR_FAMINTO;
+--=================================TRIGGER CONSUMIDOR_FAMINTO======================================
+CREATE OR REPLACE FUNCTION altera_demais_usuarios_CF()
 
-RETURNS trigger AS $altera_demais_usuarios$
-	
-	DECLARE V_CONT INTEGER;
+RETURNS trigger AS $altera_demais_usuarios_CF$
 	
 	BEGIN
 	
@@ -64,26 +62,190 @@ RETURNS trigger AS $altera_demais_usuarios$
 			WHERE ID=OLD.ID;
 	END IF;
 		
-		RETURN NULL;
+	RETURN NULL;
 	END
-$altera_demais_usuarios$ language 'plpgsql';
+$altera_demais_usuarios_CF$ language 'plpgsql';
 
-CREATE TRIGGER atualiza_usuarios
-AFTER UPDATE OF nome, data_nasc, endereco ON CONSUMIDOR_FAMINTO -- OR BEFORE UPDATE OF Faltas ON MATRICULA
+CREATE TRIGGER atualiza_usuarios_CF
+AFTER UPDATE OF nome, data_nasc, endereco ON CONSUMIDOR_FAMINTO -- se alterar qualquer atributo da classe mãe
 FOR EACH ROW
-EXECUTE PROCEDURE altera_demais_usuarios();
+EXECUTE PROCEDURE altera_demais_usuarios_CF();
 
---=============================================================
-
+--=======================================================================================================
 UPDATE CONSUMIDOR_FAMINTO
-SET nome = 'TESTE1', endereco='rua fake', data_nasc='01/01/2001'
+SET nome = 'TESTE 1', endereco='Rua 1', data_nasc='01/01/2001'
 WHERE ID=1;
-
-SELECT * FROM TESTE
 
 SELECT * FROM CONSUMIDOR_FAMINTO;
 SELECT * FROM DONO_DE_NEGOCIO;
 SELECT * FROM ENTREGADOR;
 
---SELECT * FROM CONSUMIDOR_FAMINTO
---DROP TRIGGER atualiza_usuarios ON CONSUMIDOR_FAMINTO
+
+----------------------------------------------------------------------------------------------------------------------------
+
+
+
+--DROP TRIGGER atualiza_usuarios_EN ON ENTREGADOR;
+--=================================TRIGGER ENTREGADOR======================================
+CREATE OR REPLACE FUNCTION altera_demais_usuarios_EN()
+
+RETURNS trigger AS $altera_demais_usuarios_EN$
+	
+	BEGIN
+	
+	--CONSUMIDOR_FAMINTO NOME
+	IF NEW.nome != (SELECT CONSUMIDOR_FAMINTO.nome
+					FROM CONSUMIDOR_FAMINTO
+					WHERE ID=OLD.ID) THEN
+			UPDATE CONSUMIDOR_FAMINTO
+			SET nome = NEW.nome
+			WHERE ID=OLD.ID;
+	END IF;
+	
+	--DONO_DE_NEGOCIO NOME
+	IF NEW.nome != (SELECT DONO_DE_NEGOCIO.nome
+					FROM DONO_DE_NEGOCIO
+					WHERE ID=OLD.ID) THEN
+			UPDATE DONO_DE_NEGOCIO
+			SET nome = NEW.nome
+			WHERE ID=OLD.ID;
+	END IF;
+	
+	--CONSUMIDOR_FAMINTO data_nasc
+	IF NEW.data_nasc != (SELECT CONSUMIDOR_FAMINTO.data_nasc
+					FROM CONSUMIDOR_FAMINTO
+					WHERE ID=OLD.ID) THEN
+			UPDATE CONSUMIDOR_FAMINTO
+			SET data_nasc = NEW.data_nasc
+			WHERE ID=OLD.ID;
+	END IF;
+	
+	--DONO_DE_NEGOCIO data_nasc
+	IF NEW.data_nasc != (SELECT DONO_DE_NEGOCIO.data_nasc
+					FROM DONO_DE_NEGOCIO
+					WHERE ID=OLD.ID) THEN
+			UPDATE DONO_DE_NEGOCIO
+			SET data_nasc = NEW.data_nasc
+			WHERE ID=OLD.ID;
+	END IF;
+	
+	--CONSUMIDOR_FAMINTO endereco
+	IF NEW.endereco != (SELECT CONSUMIDOR_FAMINTO.endereco
+					FROM CONSUMIDOR_FAMINTO
+					WHERE ID=OLD.ID) THEN
+			UPDATE CONSUMIDOR_FAMINTO
+			SET endereco = NEW.endereco
+			WHERE ID=OLD.ID;
+	END IF;
+	
+	--DONO_DE_NEGOCIO endereco
+	IF NEW.endereco != (SELECT DONO_DE_NEGOCIO.endereco
+					FROM DONO_DE_NEGOCIO
+					WHERE ID=OLD.ID) THEN
+			UPDATE DONO_DE_NEGOCIO
+			SET endereco = NEW.endereco
+			WHERE ID=OLD.ID;
+	END IF;
+		
+	RETURN NULL;
+	END
+$altera_demais_usuarios_EN$ language 'plpgsql';
+
+CREATE TRIGGER atualiza_usuarios_EN
+AFTER UPDATE OF nome, data_nasc, endereco ON ENTREGADOR -- se alterar qualquer atributo da classe mãe
+FOR EACH ROW
+EXECUTE PROCEDURE altera_demais_usuarios_EN();
+
+--=======================================================================================================
+UPDATE ENTREGADOR
+SET nome = 'TESTE 3', endereco='RUA 3', data_nasc='01/01/2003'
+WHERE ID=3;
+
+SELECT * FROM CONSUMIDOR_FAMINTO;
+SELECT * FROM DONO_DE_NEGOCIO;
+SELECT * FROM ENTREGADOR;
+
+
+
+---------------------------------------------------------------------------------------------------------------------------
+
+
+--DROP TRIGGER atualiza_usuarios_DN ON DONO_DE_NEGOCIO;
+--=================================TRIGGER DONO_DE_NEGOCIO======================================
+CREATE OR REPLACE FUNCTION altera_demais_usuarios_DN()
+
+RETURNS trigger AS $altera_demais_usuarios_DN$
+	
+	BEGIN
+	
+	--CONSUMIDOR_FAMINTO NOME
+	IF NEW.nome != (SELECT CONSUMIDOR_FAMINTO.nome
+					FROM CONSUMIDOR_FAMINTO
+					WHERE ID=OLD.ID) THEN
+			UPDATE CONSUMIDOR_FAMINTO
+			SET nome = NEW.nome
+			WHERE ID=OLD.ID;
+	END IF;
+	
+	--ENTREGADOR NOME
+	IF NEW.nome != (SELECT ENTREGADOR.nome
+					FROM ENTREGADOR
+					WHERE ID=OLD.ID) THEN
+			UPDATE ENTREGADOR
+			SET nome = NEW.nome
+			WHERE ID=OLD.ID;
+	END IF;
+	
+	--CONSUMIDOR_FAMINTO data_nasc
+	IF NEW.data_nasc != (SELECT CONSUMIDOR_FAMINTO.data_nasc
+					FROM CONSUMIDOR_FAMINTO
+					WHERE ID=OLD.ID) THEN
+			UPDATE CONSUMIDOR_FAMINTO
+			SET data_nasc = NEW.data_nasc
+			WHERE ID=OLD.ID;
+	END IF;
+	
+	--ENTREGADOR data_nasc
+	IF NEW.data_nasc != (SELECT ENTREGADOR.data_nasc
+					FROM ENTREGADOR
+					WHERE ID=OLD.ID) THEN
+			UPDATE ENTREGADOR
+			SET data_nasc = NEW.data_nasc
+			WHERE ID=OLD.ID;
+	END IF;
+	
+	--CONSUMIDOR_FAMINTO endereco
+	IF NEW.endereco != (SELECT CONSUMIDOR_FAMINTO.endereco
+					FROM CONSUMIDOR_FAMINTO
+					WHERE ID=OLD.ID) THEN
+			UPDATE CONSUMIDOR_FAMINTO
+			SET endereco = NEW.endereco
+			WHERE ID=OLD.ID;
+	END IF;
+	
+	--ENTREGADOR endereco
+	IF NEW.endereco != (SELECT ENTREGADOR.endereco
+					FROM ENTREGADOR
+					WHERE ID=OLD.ID) THEN
+			UPDATE ENTREGADOR
+			SET endereco = NEW.endereco
+			WHERE ID=OLD.ID;
+	END IF;
+		
+	RETURN NULL;
+	END
+$altera_demais_usuarios_DN$ language 'plpgsql';
+
+CREATE TRIGGER atualiza_usuarios_DN
+AFTER UPDATE OF nome, data_nasc, endereco ON DONO_DE_NEGOCIO -- se alterar qualquer atributo da classe mãe
+FOR EACH ROW
+EXECUTE PROCEDURE altera_demais_usuarios_DN();
+
+--=======================================================================================================
+UPDATE DONO_DE_NEGOCIO
+SET nome = 'NOVO ELON', endereco='RUA ELON', data_nasc='01/01/2013'
+WHERE ID=13;
+
+SELECT * FROM CONSUMIDOR_FAMINTO;
+SELECT * FROM DONO_DE_NEGOCIO;
+SELECT * FROM ENTREGADOR;
