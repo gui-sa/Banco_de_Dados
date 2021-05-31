@@ -1,0 +1,118 @@
+SET SEARCH_PATH TO DELIVERY;
+
+SELECT * FROM PEDIDO ORDER BY ID;
+/*======================================DEBUG=============================================================
+-----------------------------------ACOMPANHAMENTO---------------------------------------------------------
+SELECT AC.nome, TA.quantidade, AC.descricao, AC.preco
+FROM PEDIDO PE, ACOMPANHAMENTO AC, TEM_A TA
+WHERE	PE.ID=11
+AND 	TA.ID=PE.ID
+AND		AC.codigo=TA.codigo
+AND		AC.CNPJ=TA.CNPJ;
+
+SELECT SUM(TA.quantidade* AC.preco) AS CUSTO_AC
+FROM PEDIDO PE, ACOMPANHAMENTO AC, TEM_A TA
+WHERE	PE.ID=11
+AND 	TA.ID=PE.ID
+AND		AC.codigo=TA.codigo
+AND		AC.CNPJ=TA.CNPJ;
+
+
+-----------------------------------PIZZA---------------------------------------------------------
+SELECT PI.nome, PI.CNPJ, PI.preco
+FROM PIZZA PI, TEM_P TP
+WHERE 	TP.ID=11
+AND 	TP.CNPJ=PI.CNPJ
+AND 	TP.nome_p=PI.nome;
+
+SELECT SUM(PI.preco)
+FROM PIZZA PI, TEM_P TP
+WHERE 	TP.ID=11
+AND 	TP.CNPJ=PI.CNPJ
+AND 	TP.nome_p=PI.nome;
+
+-----------------------------------INGREDIENTE EXTRA-----------------------------------------------------
+SELECT PA.nome_p, PA.CNPJ, IE.nome, IE.preco
+FROM INGREDIENTE_EXTRA IE, PARA PA
+WHERE 	PA.ID_P=11
+AND 	PA.ID_I=IE.ID;
+
+SELECT SUM(IE.preco)
+FROM INGREDIENTE_EXTRA IE, PARA PA
+WHERE 	PA.ID_P=11
+AND 	PA.ID_I=IE.ID;
+
+-----------------------------------ENTRETENIMENTO-----------------------------------------------------
+SELECT AN.nome_artistico, AN.preco, PEE.duracao
+FROM PEDIDO_ENTRETENIMENTO PEE, ANIMADOR AN
+WHERE 	PEE.ID=11
+AND 	PEE.ID_E=AN.ID;
+
+SELECT SUM(AN.preco*PEE.duracao) AS VALOR_ENTRETENIMENTO
+FROM PEDIDO_ENTRETENIMENTO PEE, ANIMADOR AN
+WHERE 	PEE.ID=11
+AND 	PEE.ID_E=AN.ID;
+
+*/
+
+--===================================CALCULO CUSTO TOTAL- Stored Procedure=============================================
+CREATE OR REPLACE FUNCTION CALCULAR_CUSTO_TOTAL 
+(IN ID_PEDIDO PEDIDO.ID%TYPE)
+RETURNS NUMERIC AS $$
+DECLARE PI_VAL NUMERIC;
+		AC_VAL NUMERIC;
+		IE_VAL NUMERIC;
+		ENT_VAL NUMERIC;
+		TOTAL_VAL NUMERIC;
+BEGIN
+
+SELECT SUM(PI.preco) INTO PI_VAL
+				FROM PIZZA PI, TEM_P TP
+				WHERE 	TP.ID=ID_PEDIDO
+				AND 	TP.CNPJ=PI.CNPJ
+				AND 	TP.nome_p=PI.nome;
+IF PI_VAL IS NULL THEN
+	PI_VAL=0;
+END IF;
+
+SELECT SUM(TA.quantidade* AC.preco) INTO AC_VAL
+				FROM PEDIDO PE, ACOMPANHAMENTO AC, TEM_A TA
+				WHERE	PE.ID=ID_PEDIDO
+				AND 	TA.ID=PE.ID
+				AND		AC.codigo=TA.codigo
+				AND		AC.CNPJ=TA.CNPJ;
+IF AC_VAL IS NULL THEN
+	AC_VAL=0;
+END IF;
+
+SELECT SUM(IE.preco) INTO IE_VAL
+				FROM INGREDIENTE_EXTRA IE, PARA PA
+				WHERE 	PA.ID_P=ID_PEDIDO
+				AND 	PA.ID_I=IE.ID;
+IF IE_VAL IS NULL THEN
+	IE_VAL=0;
+END IF;
+
+SELECT SUM(AN.preco*PEE.duracao) INTO ENT_VAL
+				FROM PEDIDO_ENTRETENIMENTO PEE, ANIMADOR AN
+				WHERE 	PEE.ID=ID_PEDIDO
+				AND 	PEE.ID_E=AN.ID;
+IF ENT_VAL IS NULL THEN
+	ENT_VAL=0;
+END IF;
+
+TOTAL_VAL=PI_VAL+AC_VAL+IE_VAL+ENT_VAL;
+
+UPDATE PEDIDO
+SET custo_total = TOTAL_VAL
+WHERE ID=ID_PEDIDO;
+
+
+RETURN TOTAL_VAL;
+END $$ LANGUAGE 'plpgsql';
+--=========================================================================================================
+
+SELECT CALCULAR_CUSTO_TOTAL (PEDIDO.ID)--atualiza todos os custo_total da tabela pedido
+	FROM PEDIDO;
+
+SELECT * FROM PEDIDO ORDER BY ID;

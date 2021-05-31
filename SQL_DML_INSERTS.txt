@@ -1,6 +1,7 @@
+SET SEARCH_PATH TO DELIVERY;
+
 --delete from entregador
 --select * from entregador
-SET SEARCH_PATH TO DELIVERY;
 
 INSERT INTO ENTREGADOR ( ID, data_nasc, nome, endereco, placa) VALUES
 	( 1, '22/11/1993', 'Jose da Aparecida' , 'Rua Sao Joao, 950, Uberlandia' , 'PQJ-8031'),
@@ -82,6 +83,7 @@ INSERT INTO FORMA_PAGAMENTO (nome) VALUES
 
 --delete from PEDIDO
 --select * from PEDIDO
+
 INSERT INTO PEDIDO( ID, troco, bandeira, quantas_pessoas, horario_entrega, horario, data, ID_F, nome_fp) VALUES
 	( 1 , NULL ,'master card', 1, '19:00:00', '18:10:00', '01/03/2015', 3, 'CARTAO'),
 	( 2 , 15.0 , NULL, 2, '19:20:00', '18:30:00', '03/03/2015', 13, 'DINHEIRO'),
@@ -108,6 +110,7 @@ INSERT INTO PEDIDO( ID, troco, bandeira, quantas_pessoas, horario_entrega, horar
 
 --delete from PEDIDO_ENTRETENIMENTO
 --select * from PEDIDO_ENTRETENIMENTO
+
 INSERT INTO PEDIDO_ENTRETENIMENTO( ID, tipo, duracao, ID_E, ID_F) VALUES
 	( 6, 'drama', 1, 8, 21),
 	( 8, 'comedia', 4, 7, 13),
@@ -122,6 +125,7 @@ INSERT INTO PEDIDO_ENTRETENIMENTO( ID, tipo, duracao, ID_E, ID_F) VALUES
 
 --delete from ENTREGA
 --select * from ENTREGA
+
 INSERT INTO ENTREGA (ID_P, ID_E) VALUES
 	( 1, 1),
 	( 2, 5),
@@ -135,7 +139,8 @@ INSERT INTO ENTREGA (ID_P, ID_E) VALUES
 	( 20, 2);
 	
 --delete from PIZZARIA
---select * from PIZZARIA	
+--select * from PIZZARIA
+	
 INSERT INTO PIZZARIA (CNPJ, CEP, endereco, website, telefone, horario_abertura, horario_fechamento, ID ) VALUES
 ( '15.345.658/0001-42', '60080-150',  'Rua das Seringueiras, 1300, Uberlandia', 'www.pizzariaquentinha.com.br', '+55(34)3235-9241', '18:00:00', '23:00:00', 1),
 ( '12.531.531/0001-21', '38411-152',  'Avenida Rondon Pacheco, 1231, Uberlandia', 'www.pizzariadelicia.com.br', '+55(34)3212-4231', '17:00:00', '23:00:00', 10),
@@ -151,6 +156,7 @@ INSERT INTO PIZZARIA (CNPJ, CEP, endereco, website, telefone, horario_abertura, 
 
 --delete from TRABALHA
 --select * from TRABALHA
+
 INSERT INTO TRABALHA (ID_E, CNPJ) VALUES
 	( 4, '15.345.658/0001-42'),
 	( 7, '12.531.531/0001-21'),
@@ -167,6 +173,7 @@ INSERT INTO TRABALHA (ID_E, CNPJ) VALUES
 
 --delete from DISPONIBILIDADE
 --select * from DISPONIBILIDADE	
+
 INSERT INTO DISPONIBILIDADE (dia, ID_E, CNPJ) VALUES
 	( 'segunda-feira', 4, '15.345.658/0001-42'),
 	( 'segunda-feira', 7, '12.531.531/0001-21'),
@@ -183,6 +190,7 @@ INSERT INTO DISPONIBILIDADE (dia, ID_E, CNPJ) VALUES
 
 --delete from CATEGORIA
 --select * from CATEGORIA
+
 INSERT INTO CATEGORIA (codigo_num_filho, descricao, codigo_num_pai) VALUES
 	( 1, 'salgada', NULL),
 	( 2, 'tradicional', 1),
@@ -198,6 +206,7 @@ INSERT INTO CATEGORIA (codigo_num_filho, descricao, codigo_num_pai) VALUES
 
 --delete from PIZZA
 --select * from PIZZA
+
 INSERT INTO PIZZA (nome, CNPJ, preco, codigo_num_filho) VALUES
 	( 'Marguerita', '15.345.658/0001-42', 30.00, 2),
 	( 'Marguerita', '12.531.531/0001-21', 30.00, 2),
@@ -215,6 +224,7 @@ INSERT INTO PIZZA (nome, CNPJ, preco, codigo_num_filho) VALUES
 
 --delete from TEM_P
 --select * from TEM_P
+
 INSERT INTO TEM_P (ID, nome_p, CNPJ ,quant_molho, massa, borda) VALUES 
 	(1, 'Marguerita', '15.345.658/0001-42', 'muito', 'extra fina', 'padrao'), 
 	(2, 'Marguerita', '12.531.531/0001-21', 'muito', 'padrao', 'padrao'), 
@@ -245,6 +255,7 @@ INSERT INTO TEM_P (ID, nome_p, CNPJ ,quant_molho, massa, borda) VALUES
 
 --delete from ACOMPANHAMENTO
 --select * from ACOMPANHAMENTO
+
 INSERT INTO ACOMPANHAMENTO (codigo, CNPJ, descricao, nome, tipo, preco) VALUES
 	( 1,  '15.345.658/0001-42', ' 350 ml', 'Pepsi', 'bebida', 2.00 ),
 	( 2,  '15.345.658/0001-42', ' 2000 ml', 'Pepsi', 'bebida', 8.00 ),
@@ -267,6 +278,7 @@ INSERT INTO ACOMPANHAMENTO (codigo, CNPJ, descricao, nome, tipo, preco) VALUES
 
 --delete from TEM_A
 --select * from TEM_A
+
 INSERT INTO TEM_A (ID, codigo, CNPJ, quantidade) VALUES 
 	( 8,  6,  '12.531.531/0001-21', 20 ),
 	( 8,  3,  '12.531.531/0001-21', 10 ),
@@ -283,6 +295,7 @@ INSERT INTO TEM_A (ID, codigo, CNPJ, quantidade) VALUES
 
 --delete from INGREDIENTE_EXTRA
 --select * from INGREDIENTE_EXTRA
+
 INSERT INTO INGREDIENTE_EXTRA (ID, nome, preco) VALUES
 	( 1, 'bacon', 1.00),
 	( 2, 'milho', 1.00),
@@ -297,6 +310,7 @@ INSERT INTO INGREDIENTE_EXTRA (ID, nome, preco) VALUES
 
 --delete from PARA
 --select * from PARA
+
 INSERT INTO PARA (ID_P, ID_I ,  nome_p, CNPJ) VALUES 
 	( 1 , 1, 'Marguerita', '15.345.658/0001-42' ),
 	( 1 , 2, 'Marguerita', '15.345.658/0001-42' ),
