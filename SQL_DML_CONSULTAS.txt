@@ -1,0 +1,159 @@
+--Qual os três “trocos” mais utilizados no ano de 2015?
+/*
+Justificativa: 
+	Não são todos os clientes que informam o troco que será pedido. Nesse caso, o estabelecimento pede para o colaborador entregador levar troco para as opções mais frequentes.
+*/
+select pe.troco, count(pe.troco)
+	from PEDIDO PE
+	where (pe.troco is not null)
+	group by pe.troco
+	order by pe.troco desc
+	limit 3
+
+
+
+
+--Qual bandeira do cartão mais utilizada no ano de 2015
+/*
+Justificativa: 
+	Bandeiras distintas significam percentuais de comissão distintos. É uma ideia legal, que o aplicativo busque parcerias com bandeiras mais utilizadas. O ano em específico seria para colocar validade na informação coletada. Neste caso, o aplicativo usaria a informação para maximizar custos em 2016, por exemplo.
+*/
+select pe.bandeira, count(pe.bandeira)
+	from PEDIDO PE
+	where (pe.bandeira is not null) AND
+			(pe.data > '2014-12-30') AND
+			(pe.data < '2016-01-01')
+	group by pe.bandeira
+	order by pe.bandeira desc
+	limit 1
+
+
+
+
+--Qual o sabor de pizza mais pedido?
+/*
+Justificativa: 
+	Essa consulta fornece dados, que podem ser vendidos para pizzarias inexperientes, sobre quais os sabores de pizza mais vendidos.
+*/
+
+
+
+SELECT DISTINCT(TP.nome_p), COUNT(TP.nome_p)
+FROM TEM_P TP
+GROUP BY TP.nome_p
+ORDER BY COUNT(TP.nome_p) DESC
+LIMIT 3;
+
+
+
+--Qual o cliente mais rentável - a partir de x reais totais - (envolve custo total)
+/*
+Justificativa: 
+	O aplicativo pode buscar manter uma lista de clientes “rentaveis”. Essa lista é importante pois ajuda na manutenção dos clientes: os clientes mais rentáveis podem ganhar cupons e vales. Cupons e vales ajudam a manter a fidelidade do cliente.
+*/
+SELECT CF.nome, CF.ID, SUM(custo_total)
+FROM PEDIDO PE, CONSUMIDOR_FAMINTO CF
+WHERE CF.ID = PE.ID_F
+GROUP BY CF.nome, CF.ID
+ORDER BY SUM(custo_total) DESC;
+
+
+
+
+
+
+
+
+--Quais as pizzas (com sua categoria) e os preços que sao servidas na pizzaria de CNPJ x 
+/*
+Justificativa: 
+	Essa consulta é o cardápio da pizzaria de CNPJ X, que será mostrada ao usuário ao consultar a pizzaria.
+	No exemplo, X é o CNPJ 15.345.658/0001-42
+	
+*/
+CREATE VIEW CARDAPIO_PIZZAS_15345658000142 AS 
+select PI.nome, CAT.descricao, PI.preco
+	from PIZZA PI, CATEGORIA CAT
+	where (PI.CNPJ = '15.345.658/0001-42') AND
+			(PI.codigo_num_filho = CAT.codigo_num_filho);
+			
+select * from CARDAPIO_PIZZAS_15345658000142;
+
+
+--Qual pizzaria apresenta maior faturamento (envolve custo_total)
+/*
+Justificativa: 
+	Essa informação é importante para que o aplicativo faça manutenção dos usários donos. As pizzarias que vendem bastante pelo aplicativo, merecem aparecer primeiro na busca por pizzarias.
+*/
+SELECT TP.CNPJ, SUM(custo_total) 
+FROM PEDIDO PE, TEM_P TP
+WHERE (PE.ID = TP.ID)
+GROUP BY TP.CNPJ
+ORDER BY SUM(custo_total) DESC
+LIMIT 1;
+
+
+--Qual a média do tempo de espera nos estabelecimentos?
+/*
+Justificativa: O cliente pode saber a média de tempo que o estabelecimento demora para entregar o pedido antes de fazê-lo.
+	
+*/
+SELECT TP.CNPJ, AVG(PE.horario_entrega - PE.horario) AS tempo_de_espera
+FROM PEDIDO PE, TEM_P TP
+WHERE PE.ID = TP.ID
+GROUP BY TP.CNPJ;
+
+
+
+
+
+--Listar pizza, acompanhamento, ingredientes e animador com seu determinado custo para um pedido. Gerando um recibo.
+--OBS: É necessário que a SP - custo total tenha rodado anterior à esta consulta
+--OBS2: Neste caso, o recibo foi feito para um exemplar pedido de ID = 8.
+/*
+Justificativa: 
+	Recibo: resumo de todos os itens com seus determinados preços
+*/
+select PI.nome as nome, PI.preco as preco
+	from PIZZA PI, TEM_P TP, PEDIDO PE
+	where 	(PI.CNPJ = TP.CNPJ) AND--juncao PIZZA com tem_p
+			(PI.nome = TP.nome_p) AND
+			(PE.ID = TP.ID) AND--juncao tem_p com pedido
+			(PE.ID = 8)
+union
+select AC.nome ||'(x '|| TA.quantidade ||')' as nome, TA.quantidade*AC.preco as preco
+	from ACOMPANHAMENTO AC, TEM_A TA, PEDIDO PE
+	where 	(AC.CNPJ = TA.CNPJ) AND--juncao ACOMPANHAMENTO com tem_A
+			(AC.codigo = TA.codigo) AND
+			(PE.ID = TA.ID) AND--juncao tem_A com pedido
+			(PE.ID = 8)
+union
+select IE.nome ||'>>'|| PI.nome as nome, IE.preco as preco
+	from INGREDIENTE_EXTRA IE, PARA PA, PEDIDO PE, PIZZA PI
+	where 	(IE.ID = PA.ID_I) AND--juncao INGREDIENTE_EXTRA
+			(PE.ID = PA.ID_P) AND--juncao tem_A com pedido
+			(PI.nome = PA.nome_p) AND
+			(PI.CNPJ = PA.CNPJ) AND
+			(PE.ID = 8)
+union
+select 'Animador -'|| AN.nome_artistico as nome, AN.preco*PEE.duracao as preco
+	from PEDIDO PE, PEDIDO_ENTRETENIMENTO PEE, ANIMADOR AN
+	where 	(PEE.ID = PE.ID) AND
+			(PEE.ID_E = AN.ID) AND
+			(PE.ID = 8)
+union
+select 'Total' as nome, PE.custo_total as preco
+	from PEDIDO PE
+	where (PE.ID = 8)
+order by preco asc
+
+
+--Quais as formas de pagamento mais utilizado  no periodo 2015
+SELECT PE.nome_fp, COUNT(PE.nome_fp)
+FROM PEDIDO PE
+WHERE (PE.nome_fp IS NOT NULL) AND
+			(PE.data > '2014-12-30') AND
+			(PE.data < '2016-01-01')
+GROUP BY PE.nome_fp
+ORDER BY COUNT(PE.nome_fp) DESC
+LIMIT 1;
