@@ -29,8 +29,7 @@ select pe.bandeira, count(pe.bandeira)
 
 
 
-
---Qual o sabor de pizza mais pedido?
+--Quais os três sabores de pizza mais pedido?
 /*
 Justificativa: 
 	Essa consulta fornece dados, que podem ser vendidos para pizzarias inexperientes, sobre quais os sabores de pizza mais vendidos.
@@ -46,16 +45,17 @@ LIMIT 3;
 
 
 
---Qual o cliente mais rentável - a partir de x reais totais - (envolve custo total)
+--Qual os três cliente mais rentáveis 
 /*
 Justificativa: 
 	O aplicativo pode buscar manter uma lista de clientes “rentaveis”. Essa lista é importante pois ajuda na manutenção dos clientes: os clientes mais rentáveis podem ganhar cupons e vales. Cupons e vales ajudam a manter a fidelidade do cliente.
 */
 SELECT CF.nome, CF.ID, SUM(custo_total)
-FROM PEDIDO PE, CONSUMIDOR_FAMINTO CF
-WHERE CF.ID = PE.ID_F
-GROUP BY CF.nome, CF.ID
-ORDER BY SUM(custo_total) DESC;
+	FROM PEDIDO PE, CONSUMIDOR_FAMINTO CF
+	WHERE CF.ID = PE.ID_F
+	GROUP BY CF.nome, CF.ID
+	ORDER BY SUM(custo_total) DESC
+	LIMIT 3;
 
 
 
@@ -86,11 +86,11 @@ Justificativa:
 	Essa informação é importante para que o aplicativo faça manutenção dos usários donos. As pizzarias que vendem bastante pelo aplicativo, merecem aparecer primeiro na busca por pizzarias.
 */
 SELECT TP.CNPJ, SUM(custo_total) 
-FROM PEDIDO PE, TEM_P TP
-WHERE (PE.ID = TP.ID)
-GROUP BY TP.CNPJ
-ORDER BY SUM(custo_total) DESC
-LIMIT 1;
+	FROM PEDIDO PE, TEM_P TP
+	WHERE (PE.ID = TP.ID)
+	GROUP BY TP.CNPJ
+	ORDER BY SUM(custo_total) DESC
+	LIMIT 1;
 
 
 --Qual a média do tempo de espera nos estabelecimentos?
