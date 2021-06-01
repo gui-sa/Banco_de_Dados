@@ -148,7 +148,11 @@ select 'Total' as nome, PE.custo_total as preco
 order by preco asc
 
 
---Quais as formas de pagamento mais utilizado  no periodo 2015
+--Quais as formas de pagamento foram mais utilizados no periodo 2015?
+/*
+Justificativa: 
+	Um indicativo para o aplicativo saber qual a tendencia de pagamento, e desta forma, facilitar ou melhorar o serviço que mais agrega resultado.
+*/
 SELECT PE.nome_fp, COUNT(PE.nome_fp)
 FROM PEDIDO PE
 WHERE (PE.nome_fp IS NOT NULL) AND
@@ -157,3 +161,15 @@ WHERE (PE.nome_fp IS NOT NULL) AND
 GROUP BY PE.nome_fp
 ORDER BY COUNT(PE.nome_fp) DESC
 LIMIT 1;
+
+
+--Quais os nomes dos entregadores que atendem aos finais de semana?
+/*
+Justificativa: 
+	As pizzarias podem entrar em contato com o entregador para possívelmente sanar a demanda de entregas.
+*/
+SELECT DISTINCT(EN.nome)
+	FROM DISPONIBILIDADE DI, ENTREGADOR EN, TRABALHA TR, ANIMADOR AN
+	WHERE (DI.ID_E = TR.ID_E) AND (TR.ID_E = AN.ID) AND (AN.ID = EN.ID) AND (
+	(DI.dia = 'sabado') OR (DI.dia = 'domingo'));
+
