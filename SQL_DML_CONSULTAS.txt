@@ -1,19 +1,35 @@
---Qual os três “trocos” mais utilizados no ano de 2015?
+SET SEARCH_PATH TO DELIVERY;
+
+--1)Caso o aplicativo queira checar os dados pessoais de uma pessoa pelo nome:
 /*
-Justificativa: 
-	Não são todos os clientes que informam o troco que será pedido. Nesse caso, o estabelecimento pede para o colaborador entregador levar troco para as opções mais frequentes.
+    Justificativa:
+    Quando o cliente quer editar os dados pessoais, ou o aplicativo quer consultar os dados pessoais de um cliente, ele faz uma consulta
 */
-select pe.troco, count(pe.troco)
-	from PEDIDO PE
-	where (pe.troco is not null)
-	group by pe.troco
-	order by pe.troco desc
-	limit 3
+--Caso o cliente escolha CONSUMIDOR FAMINTO:
+select CF.nome, CF.data_nasc, CF.endereco , CF.endereco_entrega
+    from CONSUMIDOR_FAMINTO CF 
+    where CF.nome LIKE '%Apolinario%';
+
+--Caso o cliente escolha DONO_DE_NEGOCIO:
+select DN.nome, DN.data_nasc, DN.endereco , DN.linkedin
+    from DONO_DE_NEGOCIO DN 
+    where DN.nome LIKE '%Apolinario%';
+
+--Caso o cliente escolha ENTREGADOR:
+select EN.nome, EN.data_nasc, EN.endereco, EN.placa
+    from ENTREGADOR EN
+    where (EN.nome LIKE 'Rafael Costa%');
+
+
+--Caso o cliente escolha ANIMADOR:
+select EN.nome, AN.nome_artistico, AN.bibliografia , AN.preco
+    from ENTREGADOR EN, ANIMADOR AN 
+    where     (EN.ID = AN.ID) AND
+            (EN.nome LIKE 'Rafael Coelho%');
 
 
 
-
---Qual bandeira do cartão mais utilizada no ano de 2015
+--2)Qual a bandeira do cartão mais utilizada no ano de 2015?
 /*
 Justificativa: 
 	Bandeiras distintas significam percentuais de comissão distintos. É uma ideia legal, que o aplicativo busque parcerias com bandeiras mais utilizadas. O ano em específico seria para colocar validade na informação coletada. Neste caso, o aplicativo usaria a informação para maximizar custos em 2016, por exemplo.
@@ -29,23 +45,27 @@ select pe.bandeira, count(pe.bandeira)
 
 
 
---Quais os três sabores de pizza mais pedido?
+--3)Quais os quatro sabores de pizza mais pedido na pizzaria do dono que começa por "Jose da Sil...""?
 /*
 Justificativa: 
-	Essa consulta fornece dados, que podem ser vendidos para pizzarias inexperientes, sobre quais os sabores de pizza mais vendidos.
+	Essa consulta permite o dono da pizzaria consultar suas pizzas mais vendidas apenas digitando seu nome ou parte dele.
 */
 
 
-
 SELECT DISTINCT(TP.nome_p), COUNT(TP.nome_p)
-FROM TEM_P TP
+FROM TEM_P TP, PIZZARIA PIZ, DONO_DE_NEGOCIO DN, PIZZA PI
+WHERE DN.nome LIKE 'Jose da Sil%'
+AND DN.ID=PIZ.ID
+AND PIZ.CNPJ=PI.CNPJ
+AND TP.CNPJ=PI.CNPJ
+AND TP.nome_p=PI.nome
 GROUP BY TP.nome_p
 ORDER BY COUNT(TP.nome_p) DESC
-LIMIT 3;
+LIMIT 4;
 
 
 
---Qual os três cliente mais rentáveis 
+--4)Quais os cinco clientes mais rentáveis?
 /*
 Justificativa: 
 	O aplicativo pode buscar manter uma lista de clientes “rentaveis”. Essa lista é importante pois ajuda na manutenção dos clientes: os clientes mais rentáveis podem ganhar cupons e vales. Cupons e vales ajudam a manter a fidelidade do cliente.
@@ -55,16 +75,13 @@ SELECT CF.nome, CF.ID, SUM(custo_total)
 	WHERE CF.ID = PE.ID_F
 	GROUP BY CF.nome, CF.ID
 	ORDER BY SUM(custo_total) DESC
-	LIMIT 3;
+	LIMIT 5;
 
 
 
 
 
-
-
-
---Quais as pizzas (com sua categoria) e os preços que sao servidas na pizzaria de CNPJ x 
+--5)Quais as pizzas (com sua categoria) e os preços que são servidas na pizzaria de CNPJ x?
 /*
 Justificativa: 
 	Essa consulta é o cardápio da pizzaria de CNPJ X, que será mostrada ao usuário ao consultar a pizzaria.
@@ -80,7 +97,7 @@ select PI.nome, CAT.descricao, PI.preco
 select * from CARDAPIO_PIZZAS_15345658000142;
 
 
---Qual pizzaria apresenta maior faturamento (envolve custo_total)
+--6)Qual pizzaria apresenta maior faturamento?
 /*
 Justificativa: 
 	Essa informação é importante para que o aplicativo faça manutenção dos usários donos. As pizzarias que vendem bastante pelo aplicativo, merecem aparecer primeiro na busca por pizzarias.
@@ -93,7 +110,7 @@ SELECT TP.CNPJ, SUM(custo_total)
 	LIMIT 1;
 
 
---Qual a média do tempo de espera nos estabelecimentos?
+--7)Qual a média do tempo de espera nos estabelecimentos?
 /*
 Justificativa: O cliente pode saber a média de tempo que o estabelecimento demora para entregar o pedido antes de fazê-lo.
 	
@@ -106,8 +123,7 @@ GROUP BY TP.CNPJ;
 
 
 
-
---Listar pizza, acompanhamento, ingredientes e animador com seu determinado custo para um pedido. Gerando um recibo.
+--8)Listar pizza, acompanhamento, ingredientes e animador com seu determinado custo para um pedido. Gerando um recibo
 --OBS: É necessário que a SP - custo total tenha rodado anterior à esta consulta
 --OBS2: Neste caso, o recibo foi feito para um exemplar pedido de ID = 8.
 /*
@@ -148,22 +164,22 @@ select 'Total' as nome, PE.custo_total as preco
 order by preco asc
 
 
---Quais as formas de pagamento foram mais utilizados no periodo 2015?
+
+--9) O ranking das formas de pagamento que geraram maior fluxo de caixa no primeiro semestre de 2015
 /*
 Justificativa: 
 	Um indicativo para o aplicativo saber qual a tendencia de pagamento, e desta forma, facilitar ou melhorar o serviço que mais agrega resultado.
 */
-SELECT PE.nome_fp, COUNT(PE.nome_fp)
+SELECT PE.nome_fp, SUM(PE.custo_total)
 FROM PEDIDO PE
 WHERE (PE.nome_fp IS NOT NULL) AND
-			(PE.data > '2014-12-30') AND
-			(PE.data < '2016-01-01')
+			(PE.data >= '2015-01-01') AND
+			(PE.data < '2015-07-01')
 GROUP BY PE.nome_fp
-ORDER BY COUNT(PE.nome_fp) DESC
-LIMIT 1;
+ORDER BY SUM(PE.custo_total) DESC;
 
 
---Quais os nomes dos entregadores que atendem aos finais de semana?
+--10)Quais os nomes dos entregadores que atendem aos finais de semana?
 /*
 Justificativa: 
 	As pizzarias podem entrar em contato com o entregador para possívelmente sanar a demanda de entregas.
@@ -172,4 +188,3 @@ SELECT DISTINCT(EN.nome)
 	FROM DISPONIBILIDADE DI, ENTREGADOR EN, TRABALHA TR, ANIMADOR AN
 	WHERE (DI.ID_E = TR.ID_E) AND (TR.ID_E = AN.ID) AND (AN.ID = EN.ID) AND (
 	(DI.dia = 'sabado') OR (DI.dia = 'domingo'));
-

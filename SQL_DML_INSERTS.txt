@@ -7,24 +7,24 @@ INSERT INTO ENTREGADOR ( ID, data_nasc, nome, endereco, placa) VALUES
 	( 1, '22/11/1993', 'Jose da Aparecida' , 'Rua Sao Joao, 950, Uberlandia' , 'PQJ-8031'),
 	( 2, '14/05/1980', 'Rafael Costa da Silva' , 'Avenida Rondon Pacheco, 1020, Uberlandia', 'HCD-1552'),
 	( 3, '20/01/1991', 'Diego Freitas de Oliveira', 'Rua Joaquim de Barros, 255, Uberlandia ', 'PWM-7281'),
-	( 4, '12/05/1980', 'Rafael Costa da Silva' , 'Avenida Afonso Pena, 115, Uberlandia', 'PZI-4025'),
+	( 4, '12/05/1980', 'Rafael Coelho' , 'Avenida Afonso Pena, 115, Uberlandia', 'PZI-4025'),
 	( 5, '08/05/1994', 'Maria Carla da Silva' , 'Rua Carajas, 520, Uberlandia' , 'WXJ-1941'),
 	( 6, '02/01/1985', 'Luis Felipe da Cunha' , 'Rua das Seringueiras, 1200, Uberlandia' , 'DHC-1592'),
 	( 7, '25/05/2001', 'Enzo Costa Ferreira' , 'Rua Parana, 1650, Uberlandia' , 'SDO-2247'),
 	( 8, '02/03/1994', 'Diogo Resende' , 'Rua dos Carajas, 150, Uberlandia' , 'PWW-4215'),
 	( 9, '30/07/1999', 'Manuel Pereira Marques' , 'Rua Rio de Janeiro, 50, Uberlandia' , 'RRU-6347'),
-	( 10, '15/02/1975', 'Jose da Silva ' , 'Rua Alberto Guimaraes, 110, Uberlandia' , 'DCH-1210'),
-	( 23, '11/08/1982', 'Judis Creidis ' , 'Rua Alberto Guimaraes, 110, Uberlandia' , 'DBC-5215'),
-	( 24, '15/02/1967', 'Whylsson da Silva ' , 'Rua Lagoinha, 152, Uberlandia' , 'PQQ-1342'),
+	( 10, '15/02/1975', 'Jose da Silva' , 'Rua Alberto Guimaraes, 110, Uberlandia' , 'DCH-1210'),
+	( 23, '11/08/1982', 'Judis Creidis' , 'Rua Alberto Guimaraes, 110, Uberlandia' , 'DBC-5215'),
+	( 24, '15/02/1967', 'Whylsson da Silva' , 'Rua Lagoinha, 152, Uberlandia' , 'PQQ-1342'),
 	( 25, '11/02/1992', 'Flavio Rezende Batista' , 'Rua dos Machados, 1242, Uberlandia' , 'EDC-7231'),
-	( 26, '01/05/1982', 'Baby Soares ' , 'Avenida Getulio Vargas, 521, Uberlandia' , 'PQQ-1342');
+	( 26, '01/05/1982', 'Baby Soares' , 'Avenida Getulio Vargas, 521, Uberlandia' , 'PQQ-1342');
 
 --delete from DONO_DE_NEGOCIO
 --select * from dono_de_negocio
 
 INSERT INTO DONO_DE_NEGOCIO( ID, data_nasc, nome, endereco, linkedin) VALUES
 	( 1, '22/11/1993', 'Jose da Aparecida' , 'Rua Sao Joao, 950, Uberlandia' , 'https://www.linkedin.com/in/Jose-da-aparecida-555' ),
-	( 10, '15/02/1975', 'Jose da Silva ' , 'Rua Alberto Guimaraes, 110, Uberlandia' , 'https://www.linkedin.com/in/Jose-da-silva-874'),
+	( 10, '15/02/1975', 'Jose da Silva' , 'Rua Alberto Guimaraes, 110, Uberlandia' , 'https://www.linkedin.com/in/Jose-da-silva-874'),
 	( 11, '13/10/1980', 'Joao Apolinario' , 'Rua Clarimundo Carneiro, 120, Uberlandia' , 'https://www.linkedin.com/in/Joao-Apolinario-325' ),
 	( 12, '26/08/1978', 'Larissa de Macedo Machado' , 'Avenida Fernando Vilela, 860, Uberlandia' , 'https://www.linkedin.com/in/Larissa-De-Macedo-Machedo' ),
 	( 13, '28/06/1971', 'Elon Musk' , 'Avenida Vinhedos , 900, Uberlandia' , 'https://www.linkedin.com/company/spacex/?originalSubdomain=br' ),
@@ -41,7 +41,7 @@ INSERT INTO CONSUMIDOR_FAMINTO ( ID, data_nasc, nome, endereco, endereco_entrega
 	( 1, '22/11/1993', 'Jose da Aparecida' , 'Rua Sao Joao, 950, Uberlandia' , 'Rua Sao Joao, 950, Uberlandia' ),
 	( 3, '20/01/1991', 'Diego Freitas de Oliveira', 'Rua Joaquim de Barros, 255, Uberlandia ',  'Rua Joaquim de Barros, 255, Uberlandia '),
 	( 7, '25/05/2001', 'Enzo Costa Ferreira' , 'Rua Parana, 1650, Uberlandia' , 'Rua Parana, 1650, Uberlandia'),
-	( 10, '15/02/1975', 'Jose da Silva ' , 'Rua Alberto Guimaraes, 110, Uberlandia' ,  'Rua Alberto Guimaraes, 110, Uberlandia'),
+	( 10, '15/02/1975', 'Jose da Silva' , 'Rua Alberto Guimaraes, 110, Uberlandia' ,  'Rua Alberto Guimaraes, 110, Uberlandia'),
 	( 11, '13/10/1980', 'Joao Apolinario' , 'Rua Clarimundo Carneiro, 120, Uberlandia' ,  'Rua Clarimundo Carneiro, 120, Uberlandia' ),
 	( 12, '26/08/1978', 'Larissa de Macedo Machado' , 'Avenida Fernando Vilela, 860, Uberlandia' , 'Avenida Philadelpho kaka, 140, Uberlandia' ),
 	( 13, '28/06/1971', 'Elon Musk' , 'Avenida Vinhedos , 900, Uberlandia' ,  'Avenida Vinhedos , 900, Uberlandia' ),
