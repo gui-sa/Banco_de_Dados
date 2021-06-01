@@ -1,4 +1,4 @@
-SET SEARCH_PATH TO DELIVERY;
+﻿SET SEARCH_PATH TO DELIVERY;
 
 --DROP TRIGGER atualiza_usuarios_CF ON CONSUMIDOR_FAMINTO;
 --=================================TRIGGER CONSUMIDOR_FAMINTO======================================
@@ -72,6 +72,7 @@ FOR EACH ROW
 EXECUTE PROCEDURE altera_demais_usuarios_CF();
 
 --=======================================================================================================
+/*
 UPDATE CONSUMIDOR_FAMINTO
 SET nome = 'TESTE 1', endereco='Rua 1', data_nasc='01/01/2001'
 WHERE ID=1;
@@ -79,7 +80,7 @@ WHERE ID=1;
 SELECT * FROM CONSUMIDOR_FAMINTO;
 SELECT * FROM DONO_DE_NEGOCIO;
 SELECT * FROM ENTREGADOR;
-
+*/
 
 ----------------------------------------------------------------------------------------------------------------------------
 
@@ -157,6 +158,7 @@ FOR EACH ROW
 EXECUTE PROCEDURE altera_demais_usuarios_EN();
 
 --=======================================================================================================
+/*
 UPDATE ENTREGADOR
 SET nome = 'TESTE 3', endereco='RUA 3', data_nasc='01/01/2003'
 WHERE ID=3;
@@ -164,7 +166,7 @@ WHERE ID=3;
 SELECT * FROM CONSUMIDOR_FAMINTO;
 SELECT * FROM DONO_DE_NEGOCIO;
 SELECT * FROM ENTREGADOR;
-
+*/
 
 
 ---------------------------------------------------------------------------------------------------------------------------
@@ -242,6 +244,7 @@ FOR EACH ROW
 EXECUTE PROCEDURE altera_demais_usuarios_DN();
 
 --=======================================================================================================
+/*
 UPDATE DONO_DE_NEGOCIO
 SET nome = 'NOVO ELON', endereco='RUA ELON', data_nasc='01/01/2013'
 WHERE ID=13;
@@ -249,3 +252,4 @@ WHERE ID=13;
 SELECT * FROM CONSUMIDOR_FAMINTO;
 SELECT * FROM DONO_DE_NEGOCIO;
 SELECT * FROM ENTREGADOR;
+*/
